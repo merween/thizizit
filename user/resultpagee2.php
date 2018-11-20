@@ -64,9 +64,46 @@ if(isset($_SESSION["room_id"])){
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="../admin/js/new/moment.js"></script>
+  <script src="../admin/js/new/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="../admin/css/new/bootstrap-datetimepicker.min.css">
+  
+  
+   <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>-->
+  
+  <script>
+	$(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'LT'
+                });
+            });
+  </script>
+
 </head>
 
 <body><!-- Navigation -->
+
+		<div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+		
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">LakbayHub</a>
