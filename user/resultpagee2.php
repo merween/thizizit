@@ -69,40 +69,37 @@ if(isset($_SESSION["room_id"])){
   <script src="../admin/js/new/bootstrap-datetimepicker.min.js"></script>
   <link rel="stylesheet" href="../admin/css/new/bootstrap-datetimepicker.min.css">
   
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker({
+			format: 'YYYY-MM-DD',
+			defaultDate: new Date()
+		});
+		
+		$('#datetimepicker7 > .form-control').prop('disabled', true); // initially disables the 2nd datetimepicker
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+			format: 'YYYY-MM-DD'
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+			$('#datetimepicker7 > .form-control').prop('disabled', false);
+			alert(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+			alert("Hello World");
+			alert(e.date);
+        });
+    });
+</script>
   
-   <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>-->
-  
-  <script>
-	$(function () {
-                $('#datetimepicker1').datetimepicker({
-                    format: 'LT'
-                });
-            });
-  </script>
 
 </head>
 
-<body><!-- Navigation -->
-
-		<div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
+<body><!-- Navigation -->	
+		
 		
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -359,7 +356,26 @@ if(isset($_SESSION["room_id"])){
       <label for="" class="control-label">Hotel Location</label> 
       <input type="text" class="form-control" name="hotel_location" id="hotel_location" value="<?php echo "$db_hotelname";?>" readonly="true"></div>
      
+	 
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+			
+			<div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
 
+	 
       <div class="form-group"> 
         <label for="" class="control-label">Check In Date</label> 
         <input type="text" class="form-control hasDatepicker" name="room_check_in" id="room_check_in" value="22-11-2018" autocomplete="off" ></div>
