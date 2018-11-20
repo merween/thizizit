@@ -280,13 +280,16 @@ include("../connections.php");
 if(isset($_POST['search'])){
   $search = $_POST['search'];
 
-  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.* FROM hotel_registration as hr left join rooms as r on hr.hotel_id = r.hotel_id where hr.hotel_name like '%".$search."%' or hr.address like '%".$search."%' or hr.business_type like '%".$search."%' or r.room_name like '%".$search."%'");
+  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.room_id, r.room_name, r.description, r.adult, r.child, r.price, r.beds, r.pools, r.room_img
+  FROM hotel_registration as hr left join rooms as r on hr.hotel_id = r.hotel_id where hr.hotel_name like '%".$search."%' or hr.address like '%".$search."%' or hr.business_type like '%".$search."%' or r.room_name like '%".$search."%'");
 
   $resultSet = array();
 
   while ($row = mysqli_fetch_assoc($searchQuery)){
-
-    //if(!array_key_exists($row["hotel_id"], $resultSet)) {
+	  //echo "<pre>";
+	//var_dump($row);
+	//echo "</pre>";
+    
      $resultSet[$row["hotel_id"]]["hotel_id"] = $row["hotel_id"];
       $resultSet[$row["hotel_id"]]["hotel_name"] = $row["hotel_name"];
       $resultSet[$row["hotel_id"]]["business_type"] = $row["business_type"];
@@ -297,21 +300,38 @@ if(isset($_POST['search'])){
       $resultSet[$row["hotel_id"]]["hotel_facilities"] = $row["hotel_facilities"];
 
       // adding rooms in hotel
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_img"] = $row["room_img"];
-    //}
+	  
+	  if($row["room_id"] != null ) {		  
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
+		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_img"] = $row["room_img"];
+	  }
  
   }
  
 }
+
+echo json_encode($resultSet);
+
+
+
  foreach($resultSet as $key => $value):
+ 
+?>
+
+
+
+
+
+<?php 
+ 
+	if(isset($value["rooms"]) && $value["rooms"] != null) {
   foreach($value["rooms"] as $room_key => $room_value):
 
   
@@ -345,7 +365,7 @@ if(isset($_POST['search'])){
 
 
                 <div class="btn-group" data-toggle="buttons-radio">
-                  <button id="btn-game" data-target="game_container" class="btn btn btn-primary" type="button">View Rooms</button>
+                  <button id="btn-game" data-target="<?="game_container_" . $key ?>" class="btn btn btn-primary" type="button">View Rooms</button>
                    <button id="btn-video" data-target="video_container" class="btn btn btn-primary" type="button">Photos</button>
                 
                   
@@ -353,7 +373,7 @@ if(isset($_POST['search'])){
 
               </div>
 
-              <div class="container1" id="game_container">
+              <div class="container1" id="<?="game_container_" . $key ?>">
 <div class="col-sm-12 room_cont">
                             <div class="row">
                               <div class="col-sm-4"> 
@@ -421,12 +441,14 @@ $_SESSION["room_id"] = $room;
                </script> 
 
  <?php endforeach; 
+	}
+ 
 endforeach;?>
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
