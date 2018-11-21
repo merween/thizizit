@@ -81,7 +81,7 @@ if(isset($_POST['reghotel'])){
         if(move_uploaded_file($_FILES["roomimg"]["tmp_name"],$target_file)){
 
 
-    $query = mysqli_query($connect, "INSERT INTO rooms(hotel_id, room_name, description,adult,child, price, roomamenities,beds, pools, room_img) VALUES ('$hotelid','$productname','$description','$maxadult','$maxchild','$price','$amenities','$beds','$pool_string','$target_file')") or die (mysqli_error());
+    $query = mysqli_query($connect, "INSERT INTO rooms(hotel_id, room_name, description,adult,child, price, roomamenities,beds, pools, room_img) VALUES ('$hotelid','$productname','$description','$maxadult','$maxchild','$price','$amenities','$beds','$pool_string','$target_file')");
  
         echo "<script language='javascript'>alert('Registration Successfully!');</script>";
         header("location:addproduct.php");       //pang redirect

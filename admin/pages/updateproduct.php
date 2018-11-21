@@ -7,7 +7,7 @@ $get_record = mysqli_query($connect,"SELECT * FROM rooms WHERE room_id='$user_id
 
 while($row_edit = mysqli_fetch_assoc($get_record)){
 
-$db_productname=$row_edit["room_name"];
+$db_productname =$row_edit["room_name"];
 $db_hotelid = $row_edit["hotel_id"];
 $db_description = $row_edit["description"];
 $db_maxadult = $row_edit['adult'];

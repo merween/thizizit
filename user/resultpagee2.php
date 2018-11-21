@@ -80,11 +80,7 @@ if(isset($_SESSION["room_id"])){
         $('#datetimepicker6').datetimepicker({
       format: 'YYYY-MM-DD',
       defaultDate: new Date()
-    });
-
-      
-
-    
+    }); 
     $('#datetimepicker7 > .form-control').prop('disabled', true); // initially disables the 2nd datetimepicker
         $('#datetimepicker7').datetimepicker({
             useCurrent: false, //Important! See issue #1075
@@ -94,14 +90,7 @@ if(isset($_SESSION["room_id"])){
         $("#datetimepicker6").on("dp.change", function (e) {
             $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
       $('#datetimepicker7 > .form-control').prop('disabled', false);
-      
-      
-      
-
-     
-     
         });
-
 
         $("#datetimepicker7").on("dp.change", function (e) {
             $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
@@ -119,17 +108,19 @@ if(isset($_SESSION["room_id"])){
     if (b) {
         timeDiff = (b - a) / 1000;
     }
-
-
     var DateDiff = Math.floor(timeDiff / (60 * 60 * 24));
    $.ajax({
-
-    url:"resultpagee2.php",
+    url:"test.php",
     type:"POST",
-    data:{DateDiff:DateDiff},
-    success:function()
+    data:{
+      DateDiff:DateDiff,
+      roomID: $('#rm_id').val()
+    },
+    success:function(response)
     {
-      alert(DateDiff);
+      var result = JSON.parse(response);
+
+      $('.ttl-amt').html(parseFloat(result.total).toFixed(2));
     }
    })
   
@@ -191,25 +182,25 @@ if(isset($_SESSION["room_id"])){
             <div class="row header-rmsearch-inner-wrapper">
               <form method="POST" id="search_hotel_block_form">
                 <div class="form-group col-sm-6 col-lg-3 "> 
-    <input type="text" class="form-control header-rmsearch-input" id="hotel_location" name="hotel_location" autocomplete="off" placeholder="Hotel Location" value="DefCity, Alabama, United States">
+    <input type="hidden" class="form-control header-rmsearch-input" id="hotel_location" name="hotel_location" autocomplete="off" placeholder="Hotel Location" value="DefCity, Alabama, United States">
     <div class="dropdown">
       <ul class="location_search_results_ul" style="display: none;"></ul></div></div>
       <div class="form-group col-sm-6 col-lg-3 ">
         <div class="dropdown"> 
-          <button class="form-control header-rmsearch-input " type="button" data-toggle="dropdown"> 
-            <span id="hotel_cat_name" class="pull-left">The Hotel Prime</span> 
+          
+            <span id="hotel_cat_name" class="pull-left"></span> 
     <input type="hidden" id="hotel_cat_id" name="hotel_cat_id" value="15"> 
     <input type="hidden" id="id_hotel" name="id_hotel" value="1"> 
     <input type="hidden" id="max_order_date" name="max_order_date" value="2019-09-18"> 
     <span class="arrow_span"> <i class="icon icon-angle-down"></i> </span> </button>
     <ul class="dropdown-menu hotel_dropdown_ul">
-      <li class="hotel_name" data-id-hotel="" data-hotel-cat-id="15" data-max_order_date="2019-09-18"> The Hotel Prime</li></ul></div></div>
+      </ul></div></div>
       <div class="form-group col-sm-4 col-lg-2 "> 
-        <input type="text" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_in_time" name="check_in_time" autocomplete="off" placeholder="Check In Date" value="22-11-2018"></div>
+        <input type="hidden" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_in_time" name="check_in_time" autocomplete="off" placeholder="Check In Date" value="22-11-2018"></div>
         <div class="form-group col-sm-4 col-lg-2 "> 
-          <input type="text" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_out_time" name="check_out_time" autocomplete="off" placeholder="Check Out Date" value="24-11-2018"></div>
+          <input type="hidden" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_out_time" name="check_out_time" autocomplete="off" placeholder="Check Out Date" value="24-11-2018"></div>
           <div class="form-group col-sm-4 col-lg-2 "> 
-            <button type="submit" class="btn btn-default button button-medium exclusive" name="product_page_search_submit" id="search_room_submit"> <span>Search Now</span> </button></div>
+            </div>
             </form></div></div></div></div>
            
 
@@ -408,12 +399,16 @@ if(isset($_SESSION["room_id"])){
 $datediff =0;
 
 
-if($_POST['DateDiff']){
+if(isset($_POST['DateDiff']) && $_SERVER['REQUEST_METHOD']=='POST'){
 $datediff = $_POST['DateDiff'];
 
 }
 
+//san ko itete4st?
+
 $total = $datediff * $db_price;
+
+$myjson = json_encode($total);
 
 
 ?>
@@ -424,34 +419,29 @@ $total = $datediff * $db_price;
       <input type="text" class="form-control" name="hotel_location" id="hotel_location" value="<?php echo "$db_hotelname";?>" readonly="true"></div>
      
 	 
-    <div class='col-md-5'>
-        <div class="form-group">
+ 
+
+
+
+	 <?php echo "$total";?>
+      <div class="form-group"> 
+        <input type = "hidden" name ="result" class='minim'/>
+        <label for="" class="control-label">Check In Date</label> 
+         <div class="form-group">
             <div class='input-group date' id='datetimepicker6'>
                 <input type='text' class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
-			
-			<div class='input-group date' id='datetimepicker7'>
+        <div class="form-group"> 
+          <label for="" class="control-label">Check Out Date</label> 
+         <div class='input-group date' id='datetimepicker7'>
                 <input type='text' class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
-        </div>
-    </div>
-
-
-
-	 <?php echo "$datediff";?>
-      <div class="form-group"> 
-        <input type = "text" name ="result" class='minim'/>
-        <label for="" class="control-label">Check In Date</label> 
-        <input type="text" class="form-control hasDatepicker" name="room_check_in" id="room_check_in" value="22-11-2018" autocomplete="off" ></div>
-        <div class="form-group"> 
-          <label for="" class="control-label">Check Out Date</label> 
-          <input type="text" class="form-control hasDatepicker" name="room_check_out" id="room_check_out" value="24-11-2018" autocomplete="off" ></div>
           <div class="room_unavailability_date_error_div"></div>
           <div class="form-group unvail_rooms_cond_display">
             <div id="quantity_wanted_p"> <label for="quantity_wanted">No. of Rooms</label>
@@ -462,11 +452,12 @@ $total = $datediff * $db_price;
               <a href="#" data-field-qty="qty" class="btn btn-default button-plus product_quantity_up"> <span><i class="icon-plus"></i></span> </a> <span class="clearfix"></span></div></div>
               <div class="room_unavailability_qty_error_div"></div>
               <div class="form-group unvail_rooms_cond_display"> <label for="" class="control-label">Total Amount</label>
-                <div class="total_price_block"><p class="col-sm-5 text-center"><?php echo "$total";?></p></div>
+                <div class="total_price_block"><p class="col-sm-5 text-center ttl-amt"><?php echo "$total";?></p></div>
                 <div class="num_quantity_alert col-sm-7"></div></div>
                   <div class="sold_out_alert" style="display: none;"> <span>Sold Out !!</span></div>
                   <div class="form-group unvail_rooms_cond_display">
                     <p id="add_to_cart" class="buttons_bottom_block no-print"> 
+                      <input type="hidden" value="<?php echo $_SESSION["room_id"]; ?>" id="rm_id" />
                       <button type="submit" name="Submit" class="exclusive book_now_submit added"> 
                         <span> Book Now </span> 
                       </button></p></div>

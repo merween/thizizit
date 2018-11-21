@@ -1,3 +1,32 @@
+
+<script src="../js/jQuery.js"></script>
+<style>
+ img{height:150px;}
+</style>
+
+<script type ="application/javascript">
+
+var _URL= window.URL || window.webkitURL;
+function displayPreview(files){
+
+    var file = files[0]
+    var img = new Image();
+    var sizeKB = file.size / 1024;
+    img.onload = function(){
+
+        $('#preview').append(img);
+    }
+
+    img.src=_URL.createObjectURL(file);
+}
+
+
+    </script>
+
+
+
+
+
 <?php
  
 include("connect.php");
@@ -8,6 +37,9 @@ $hotelname = $email = $address = $number = "";
 $hotelnameErr = $emailErr = $addressErr = $numberErr = "";
  
 $type = $msg = "";
+
+$target_dir="Img/";
+$uploaderr="";
  
 if(isset($_POST['reghotel'])){
  
@@ -18,10 +50,37 @@ if(isset($_POST['reghotel'])){
     $address = $_POST["address"];
     $number = $_POST["pnumber"];
     $amenities = $_POST['hotelamenities'];
+
+
+
+
+     $target_file = $target_dir . "/" . basename($_FILES["roomimg"]["name"]);
+     $uploadok=1;
+
+if($hotelname && $email && $address && $number){
+
+  if(file_exists($target_file)){
+
+        $target_file =$target_dir . rand(1,9) . rand(1,9) . rand(1,9) . rand(1,9) . "_" . basename($_FILES["roomimg"]["name"]);
+
+        $uploadok=1;
+    }
+
+     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+    if($_FILES["roomimg"]["size"] > 5000000000000000000000000){
+
+        $uploaderr = "soory, your file is too large.";
+        $uploadok=0;
+    }
+
+
+  if($uploadok == 1){
+        if(move_uploaded_file($_FILES["roomimg"]["tmp_name"],$target_file)){
      
-    if($hotelname && $email && $address && $number){
+    
        
-        $query = mysqli_query($connect, "INSERT INTO hotel_registration(business_type, hotel_name,short_description, address, email_address, phone_number ,hotel_facilities) VALUES ('$type','$hotelname','$description','$address','$email','$number','$amenities')");
+        $query = mysqli_query($connect, "INSERT INTO hotel_registration(business_type, hotel_name,short_description, address, email_address, phone_number ,hotel_facilities, hotel_img) VALUES ('$type','$hotelname','$description','$address','$email','$number','$amenities','$target_file')");
  
         echo "<script language='javascript'>alert('Registration Successfully!');</script>";
         header("location:registerhotel.php");       //pang redirect
@@ -30,6 +89,18 @@ if(isset($_POST['reghotel'])){
  
         echo "<script language='javascript'>alert('not Registration Successfully!')</script>";
     }
+ }
+           
+}
+if(empty($_GET["notify"])){
+
+}
+else{
+    echo"<center" . $_GET["notify"] . "</center>";
+}
+
+       
+      
  
            
 }
@@ -284,13 +355,30 @@ if(isset($_POST['reghotel'])){
                                        
                                     </div>
                                 </div>
+
+                                 <table border ="0" width = "30%">
+                                        <tr>
+                                            <td colspan ="2"><center><span id="preview"><center></span></td></tr>
+<tr><td colspan ="2"><hr></td></tr>
+<tr>
+    <td width ="50%"><input type = "file" name="roomimg" id="roomimg" onchange="displayPreview(this.files);"/></td>
+    <td></td>
+</tr>
+
+</table>
+<span class ="error"> <?php echo $uploaderr; ?> </span>
+<br>
+<br>
  
                                 <div class="col-md-6 offset-md-4">
                                     <input type="submit" name="reghotel" value="Register" class="btn btn-primary">
                                 </div>
+
+
                             </form>
                         </div>
                     </div>
+
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->

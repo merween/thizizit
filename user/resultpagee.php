@@ -21,8 +21,8 @@ if(isset($_SESSION["id"])){
 
 }else{
   
-  echo "You mustl login first! <a href='../login.php'>log in now!</a>";
-}
+ 
+
 
 
 ?>
@@ -52,13 +52,8 @@ if(isset($_SESSION["id"])){
           <span></span> 
         </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Log in</a>
-            </li>
+          <ul class="navbar-nav">
+            
             <li class="nav-item">
               <a class="nav-link" href="#">Home
                 <span class="sr-only"></span>
@@ -68,7 +63,7 @@ if(isset($_SESSION["id"])){
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="#"><?php echo "You mustl login first! <a href='../login.php'>log in now!</a>";}?></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
@@ -266,10 +261,7 @@ if(isset($_SESSION["id"])){
                         <li><a href="#" class="sort_result" data-sort-by="2" data-value="2">Price : Highest first </a></li></ul></div></div></div>
                         <div class="row margin-lr-0" id="category_data_cont"> 
                           <input type="hidden" id="max_order_date" name="max_order_date" value="2019-09-18">
-                          <div class="col-sm-12 room_cont">
-                            <div class="row">
-                              <div class="col-sm-4"> 
-
+                         
 
                                <!-- Page Content -->
 
@@ -286,11 +278,11 @@ if(isset($_POST['search'])){
   $resultSet = array();
 
   while ($row = mysqli_fetch_assoc($searchQuery)){
-	  //echo "<pre>";
-	//var_dump($row);
-	//echo "</pre>";
+    //echo "<pre>";
+  //var_dump($row);
+  //echo "</pre>";
     
-     $resultSet[$row["hotel_id"]]["hotel_id"] = $row["hotel_id"];
+      $resultSet[$row["hotel_id"]]["hotel_id"] = $row["hotel_id"];
       $resultSet[$row["hotel_id"]]["hotel_name"] = $row["hotel_name"];
       $resultSet[$row["hotel_id"]]["business_type"] = $row["business_type"];
       $resultSet[$row["hotel_id"]]["short_description"] = $row["short_description"];
@@ -300,28 +292,28 @@ if(isset($_POST['search'])){
       $resultSet[$row["hotel_id"]]["hotel_facilities"] = $row["hotel_facilities"];
 
       // adding rooms in hotel
-	  
-	  if($row["room_id"] != null ) {		  
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
-		  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_img"] = $row["room_img"];
-	  }
+    
+    if($row["room_id"] != null ) {      
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_img"] = $row["room_img"];
+    }
  
   }
  
 }
 
-echo json_encode($resultSet);
 
 
 
- foreach($resultSet as $key => $value):
+
+foreach($resultSet as $key => $value ):
  
 ?>
 
@@ -329,18 +321,14 @@ echo json_encode($resultSet);
 
 
 
-<?php 
- 
-	if(isset($value["rooms"]) && $value["rooms"] != null) {
-  foreach($value["rooms"] as $room_key => $room_value):
-
-  
+  <div class="col-sm-12 room_cont">
+                            <div class="row">
+                              <div class="col-sm-4"> 
 
 
-?>
 
-
-                               <a href="#"> <img src="https://demo.qloapps.com/24-home_default/super-delux-rooms.jpg" class="img-responsive"> </a></div>
+      <a href="#"> <img src="https://demo.qloapps.com/24-home_default/super-delux-rooms.jpg" class="img-responsive"> </a></div>
+   
       <div class="col-sm-8">
         <p class="rm_heading"><?php echo $value["hotel_name"] ?></p>
          <span class="hoteltype"><?php echo $value["business_type"]?></span>
@@ -361,25 +349,24 @@ echo json_encode($resultSet);
                 <i class="material-icons" style="font-size:36px">location_on</i>
                 <i class="material-icons" style="font-size:36px">pool</i>
                 <img src="/img/rf/11.png" class="rm_amen"></div>
-                
-
-
-                <div class="btn-group" data-toggle="buttons-radio">
+<div class="btn-group" data-toggle="buttons-radio">
                   <button id="btn-game" data-target="<?="game_container_" . $key ?>" class="btn btn btn-primary" type="button">View Rooms</button>
                    <button id="btn-video" data-target="video_container" class="btn btn btn-primary" type="button">Photos</button>
-                
-                  
-                </div>
-
-              </div>
-
-              <div class="container1" id="<?="game_container_" . $key ?>">
-<div class="col-sm-12 room_cont">
-                            <div class="row">
-                              <div class="col-sm-4"> 
 
 
-                               <!-- Page Content -->
+</div>
+
+                                                          </div>
+
+
+ 
+
+<?php 
+ 
+  
+  foreach($value["rooms"] as $room_key => $room_value):
+
+?>
 
 <?php
 
@@ -391,34 +378,41 @@ $_SESSION["hotel_id"] = $hotel;
 $_SESSION["room_id"] = $room;
 
 ?>
+<div class="container1" id="<?="game_container_" . $key ?>">
+
+
+  <div class="col-sm-12 room_cont">
+  
+
+                            <div class="row">
+                              <div class="col-sm-4"> 
 
 
 
 
-
-      <?php echo "<img src ='../admin/pages/" . $room_value["room_img"] . "' width='150' height='150'/>";?>  </div>
+      <a href="#"> <img src="https://demo.qloapps.com/24-home_default/super-delux-rooms.jpg" class="img-responsive"> </a></div>
+   
       <div class="col-sm-8">
         <p class="rm_heading"><?php echo $room_value["room_name"] ?></p>
-        
-        <div class="rm_desc"><?php echo $room_value["description"]?>
-          </div>
+         <span class="hoteltype"><?php echo $room_value["description"]?></span>
+          <a href="#">View More....</a></div>
+
+         
             <div class="rm_review_cont pull-left"><div class="rm_ratting_no" style="background-image:url(/modules/hotelreservationsystem/views/img/Slices/icons-sprite.png);"></div>
             <div class="rm_ratting_no" style="background-image:url(/modules/hotelreservationsystem/views/img/Slices/icons-sprite.png);"></div>
             <div class="rm_ratting_no" style="background-image:url(/modules/hotelreservationsystem/views/img/Slices/icons-sprite.png);"></div>
             <div class="rm_ratting_no" style="background-image:url(/modules/hotelreservationsystem/views/img/Slices/icons-sprite.png);"></div>
             <div class="rm_ratting_no" style="background-image:url(/modules/hotelreservationsystem/views/img/Slices/icons-sprite.png);"></div> 
-             <p><span class="capa_txt">Max Capacity:</span>
-            <span class="capa_data"><?php echo $room_value["adult"]?> Adults, <?php echo $room_value["child"]?> child</span></p>
             <span class="rm_review">0 Reviews</span></div> 
             <span class="rm_left pull-right">Hurry! 
               <span class="cat_remain_rm_qty_8">#</span> rooms left</span>
               <div class="rm_amenities_cont"> 
-                <img src="/img/rf/8.png" class="rm_amen"> 
-                <img src="/img/rf/9.png" class="rm_amen"> 
-                <img src="/img/rf/10.png" class="rm_amen"> 
-                <img src="/img/rf/11.png" class="rm_amen"></div>
-                <div class="row margin-lr-0 pull-left rm_price_cont"> 
-                  <span class="pull-left rm_price_val ">P<?php echo $room_value["price"]?></span> 
+                <i class="material-icons" style="font-size:36px">rss_feed</i>
+                <i class="material-icons" style="font-size:36px">location_on</i>
+                <i class="material-icons" style="font-size:36px">pool</i>
+                <img src="/img/rf/11.png" class="rm_amen">
+
+              <span class="pull-left rm_price_val ">P<?php echo $room_value["price"]?></span> 
                   <span class="pull-left rm_price_txt">/Per Night</span></div>
                   <a cat_rm_check_in="2018-11-08" cat_rm_check_out="2018-11-15" href="resultpagee2.php" rm_product_id="8" cat_rm_book_nm_days="7" data-id-product-attribute="0" data-id-product="8" class="btn btn-default button button-medium ajax_add_to_cart_button pull-right"><span>Book Now</span></a>
                 <div class="btn-group" data-toggle="buttons-radio">
@@ -427,6 +421,20 @@ $_SESSION["room_id"] = $room;
                   
                 </div></div></div>
 </div></div>
+          
+
+              <?php endforeach;
+            endforeach;
+             ?>
+
+
+                
+
+
+               
+
+
+
                <script>
                  $(document).ready(function() {
 
@@ -440,10 +448,7 @@ $_SESSION["room_id"] = $room;
 });
                </script> 
 
- <?php endforeach; 
-	}
  
-endforeach;?>
 
 
     <!-- Bootstrap core JavaScript -->

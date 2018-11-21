@@ -212,6 +212,7 @@ Manage Companies <span class="badge">1</span>
   <thead class="thead-dark">
     <tr>
       <th scope="col">Company Id</th>
+      <th scope="col">Establishment</th>
       <th scope="col">Type of Business</th>
       <th scope="col">Company Name</th>
       <th scope="col">Locations</th>
@@ -231,9 +232,11 @@ $db_type = $row["business_type"];
 $db_name = $row["hotel_name"];
 $db_location = $row["address"];
 $db_email = $row["email_address"];
+$db_img = $row["hotel_img"];
 
 echo "<tr>
 	<td>$db_id</td>
+    <td><img src='$db_img' style='width:64px;height:64px'></td>
 	<td>$db_type</td>
 	<td>$db_name</td>
 	<td>$db_location</td>
