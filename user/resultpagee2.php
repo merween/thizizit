@@ -44,6 +44,12 @@ if(isset($_SESSION["room_id"])){
   
   echo "You mustl login first! <a href='../login.php'>log in now!</a>";
 }
+
+
+
+
+
+
 ?>
 
 
@@ -64,42 +70,86 @@ if(isset($_SESSION["room_id"])){
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
   <script src="../admin/js/new/moment.js"></script>
   <script src="../admin/js/new/bootstrap-datetimepicker.min.js"></script>
   <link rel="stylesheet" href="../admin/css/new/bootstrap-datetimepicker.min.css">
   
-<script type="text/javascript">
+  <script type="text/javascript">
     $(function () {
         $('#datetimepicker6').datetimepicker({
-			format: 'YYYY-MM-DD',
-			defaultDate: new Date()
-		});
-		
-		$('#datetimepicker7 > .form-control').prop('disabled', true); // initially disables the 2nd datetimepicker
+      format: 'YYYY-MM-DD',
+      defaultDate: new Date()
+    });
+
+      
+
+    
+    $('#datetimepicker7 > .form-control').prop('disabled', true); // initially disables the 2nd datetimepicker
         $('#datetimepicker7').datetimepicker({
             useCurrent: false, //Important! See issue #1075
-			format: 'YYYY-MM-DD'
+      format: 'YYYY-MM-DD'
         });
+
         $("#datetimepicker6").on("dp.change", function (e) {
             $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-			$('#datetimepicker7 > .form-control').prop('disabled', false);
-			alert(e.date);
+      $('#datetimepicker7 > .form-control').prop('disabled', false);
+      
+      
+      
+
+     
+     
         });
+
+
         $("#datetimepicker7").on("dp.change", function (e) {
             $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-			alert("Hello World");
-			alert(e.date);
+           
+      calcDiff();
+
         });
+
     });
+
+   function calcDiff() {
+    var a = $("#datetimepicker6").data("DateTimePicker").date();
+    var b = $("#datetimepicker7").data("DateTimePicker").date();
+    var timeDiff = 0
+    if (b) {
+        timeDiff = (b - a) / 1000;
+    }
+
+
+    var DateDiff = Math.floor(timeDiff / (60 * 60 * 24));
+   $.ajax({
+
+    url:"resultpagee2.php",
+    type:"POST",
+    data:{DateDiff:DateDiff},
+    success:function()
+    {
+      alert(DateDiff);
+    }
+   })
+  
+    
+    
+
+}
+    
+
 </script>
+
   
   
 
 </head>
 
 <body><!-- Navigation -->	
-		
+  <button onlick ="calcDiff()">calc</button>
+		<input class='calculated' />
+
 		
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -351,7 +401,24 @@ if(isset($_SESSION["room_id"])){
         <div class="arrow-down-div">
           <div class="arrow-down"></div></div>
           <div class="booking_room_fields">
-  <form action="" method="post">
+
+
+
+<?php
+$datediff =0;
+
+
+if($_POST['DateDiff']){
+$datediff = $_POST['DateDiff'];
+
+}
+
+$total = $datediff * $db_price;
+
+
+?>
+
+  <form action="resultpagee2.php" method="post">
     <div class="form-group"> 
       <label for="" class="control-label">Hotel Location</label> 
       <input type="text" class="form-control" name="hotel_location" id="hotel_location" value="<?php echo "$db_hotelname";?>" readonly="true"></div>
@@ -375,8 +442,11 @@ if(isset($_SESSION["room_id"])){
         </div>
     </div>
 
-	 
+
+
+	 <?php echo "$datediff";?>
       <div class="form-group"> 
+        <input type = "text" name ="result" class='minim'/>
         <label for="" class="control-label">Check In Date</label> 
         <input type="text" class="form-control hasDatepicker" name="room_check_in" id="room_check_in" value="22-11-2018" autocomplete="off" ></div>
         <div class="form-group"> 
@@ -392,12 +462,13 @@ if(isset($_SESSION["room_id"])){
               <a href="#" data-field-qty="qty" class="btn btn-default button-plus product_quantity_up"> <span><i class="icon-plus"></i></span> </a> <span class="clearfix"></span></div></div>
               <div class="room_unavailability_qty_error_div"></div>
               <div class="form-group unvail_rooms_cond_display"> <label for="" class="control-label">Total Amount</label>
-                <div class="total_price_block"><p class="col-sm-5 text-center"> $2,000.00</p></div>
+                <div class="total_price_block"><p class="col-sm-5 text-center"><?php echo "$total";?></p></div>
                 <div class="num_quantity_alert col-sm-7"></div></div>
                   <div class="sold_out_alert" style="display: none;"> <span>Sold Out !!</span></div>
                   <div class="form-group unvail_rooms_cond_display">
                     <p id="add_to_cart" class="buttons_bottom_block no-print"> 
                       <button type="submit" name="Submit" class="exclusive book_now_submit added"> 
                         <span> Book Now </span> 
-                      </button></p></div></form></div></div></div>
+                      </button></p></div>
+                    </form></div></div></div>
                     </div>
