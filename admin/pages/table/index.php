@@ -110,7 +110,7 @@
      <label id="label_hotel">Select Hotel</label>
      <select name="text_hotel" id="text_hotel" class="form-control">
         <?php 
-        $hotel = mysqli_query($db, "SELECT * FROM hotel_registration");
+        $hotel = mysqli_query($db, "SELECT hotel_id, hotel_name FROM hotel_registration");
           while ($row = mysqli_fetch_array($hotel)) { ?>
           <option value="<?php echo $row['hotel_id']; ?>"><?php echo $row['hotel_name']; ?></option>
           <?php } ?>

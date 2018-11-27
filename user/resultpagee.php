@@ -240,15 +240,15 @@ include("../connections.php");
 if(isset($_POST['search'])){
   $search = $_POST['search'];
 
-  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.room_id, r.room_name, r.description, r.adult, r.child, r.price, r.type_of_room, r.beds, r.pools, r.image, r.image1, r.image2, r.hotel_type
+  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.*
   FROM hotel_registration as hr left join rooms as r on hr.hotel_id = r.hotel_id where hr.hotel_name like '%".$search."%' or hr.address like '%".$search."%' or hr.business_type like '%".$search."%' or r.room_name like '%".$search."%'");
 
   $resultSet = array();
 
   while ($row = mysqli_fetch_assoc($searchQuery)){
-    //echo "<pre>";
-  //var_dump($row);
-  //echo "</pre>";
+//   echo "<pre>";
+//   var_dump($row);
+//   echo "</pre>";
     
       $resultSet[$row["hotel_id"]]["hotel_id"] = $row["hotel_id"];
       $resultSet[$row["hotel_id"]]["hotel_name"] = $row["hotel_name"];
@@ -266,19 +266,19 @@ if(isset($_POST['search'])){
       // adding rooms in hotel
     
     if($row["room_id"] != null ) {      
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["type_of_room"] = $row["type_of_room"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image"] = $row["image"];
-  	  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image1"] = $row["image1"];
-  	  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image2"] = $row["image2"];
-     $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["hotel_type"] = $row["hotel_type"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_id"] = $row["room_id"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_name"] = $row["room_name"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["description"] = $row["description"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["type_of_room"] = $row["type_of_room"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image"] = $row["image"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image1"] = $row["image1"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image2"] = $row["image2"];
+        $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["hotel_type"] = $row["hotel_type"];
     }
  
   }
@@ -286,11 +286,16 @@ if(isset($_POST['search'])){
 }
 
 
-
+// echo "<pre>";
+// var_dump($resultSet);
+// echo "</pre>";
 
 
 foreach($resultSet as $key => $value ):
- 
+// echo "<pre>";
+// var_dump($key);
+// var_dump($value);
+// echo "</pre>";
 ?>
 
 
@@ -339,7 +344,9 @@ foreach($resultSet as $key => $value ):
 
 <?php 
  
-  
+if(isset($value["rooms"]) && $value["rooms"] != null ) {
+    
+
   foreach($value["rooms"] as $room_key => $room_value):
 
 ?>
@@ -400,6 +407,8 @@ $_SESSION["room_id"] = $room;
           
 
               <?php endforeach;
+              
+}
             endforeach;
              ?>
 

@@ -1,4 +1,4 @@
-<?php 
+	<?php 
 
   $db = mysqli_connect("localhost", "root", "", "mydb");
   $type_of_room = mysqli_query($db, "SELECT * FROM type_of_room");

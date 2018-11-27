@@ -19,8 +19,9 @@ $room = $_POST['roomID'];
   $db_amenities = $row_edit["roomamenities"];
   $db_beds = $row_edit["beds"];
   $db_pools = $row_edit["pools"];
-   $db_img = $row_edit["room_img"];
-
+   $db_img = $row_edit["image"];
+   $db_img1 = $row_edit["image1"];
+$db_img2 = $row_edit["image2"];
 
 }
 
