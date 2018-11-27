@@ -1,0 +1,27 @@
+.images
+{
+	position: relative;
+	width: 100%;
+}
+.virtual_image
+{
+	width: 100%;
+	position: relative;
+	margin-left: 0%;
+	height: 50em;
+}
+.icon_360
+{
+	position: absolute;
+	top: 10%;
+	width: 100%;
+}
+.icon_view
+{
+	width: 50%;
+	height: 20%;
+	left: 25%;
+	position: relative;
+	z-index: 10;
+	top: 20em;
+}

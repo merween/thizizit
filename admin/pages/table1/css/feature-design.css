@@ -1,0 +1,74 @@
+.add_modal
+{
+	width: 25%;
+	height: 40%;
+	position: fixed;
+	background-color: white;
+	border-radius: 7px;
+	left: 38%;
+	top: 25%;
+ 	padding: .5%;
+}
+.btn_c
+{
+	position: absolute;
+	bottom: 2%;
+	right: 1%;
+	padding: 1%;
+	border-radius: 4px;
+	background-color: white;
+	border: 1px solid gray;
+}
+#features_table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 2vh;
+    overflow: auto;
+}
+
+#features_table td, #features_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#features_table tr:nth-child(even){background-color: #f2f2f2;}
+#features_table tr:first-child{background-color: black;}
+#features_table tr:hover {background-color: #ddd;}
+
+#features_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+.button
+{
+	position: absolute;
+	right: 2%;
+	top: 2.5%;
+}
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.cbtn_addm
+{
+	position: absolute;
+	bottom: 4%;
+	right: 3%;
+	display: inline-block;
+}
+.abtn_addm
+{
+	position: absolute;
+	bottom: 4%;
+	right: 22%;
+	display: inline-block;
+}

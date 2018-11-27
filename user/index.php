@@ -16,7 +16,7 @@ if(isset($_SESSION["id"])){
   $db_email = $row_edit["emailad"];
 
 }
-echo "welcome $db_username !";
+
 
 }else{
   
@@ -54,25 +54,15 @@ echo "welcome $db_username !";
         </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            
             <li class="nav-item">
-              <a class="nav-link" href="register.php">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Log in</a>
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" href="#">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+            
+			<li class="nav-item">
+              <a class="nav-link" href="myaccount.php"><?php echo "Welcome $db_username !";?></a>
             </li>
           </ul>
         </div>
@@ -88,21 +78,21 @@ echo "welcome $db_username !";
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('img/photo1.jpeg')">
+          <div class="carousel-item active" style="background-image: url('../img/photo1.jpeg')">
             <div class="carousel-caption d-none d-md-block">
               <h3>First Filipino Engine hotel</h3>
               <p>Unforgettable Experience.</p>
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('img/photo2.jpg')">
+          <div class="carousel-item" style="background-image: url('../img/photo2.jpg')">
             <div class="carousel-caption d-none d-md-block">
               <h3>Good People</h3>
               <p>Enjoy & Fun Experience</p>
             </div>
           </div>
           <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('img/photo3.jpg')">
+          <div class="carousel-item" style="background-image: url('../img/photo3.jpg')">
             <div class="carousel-caption d-none d-md-block">
               <h3>Trusted Services</h3>
               <p>Discounted prices</p>

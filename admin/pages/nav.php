@@ -39,6 +39,7 @@
         <div id="wrapper">
 
             <!-- Navigation -->
+            <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">iBukmo</a>
@@ -89,7 +90,7 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="../../../index1.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -111,16 +112,16 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="index.html" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Hotel & Resort Management<span class="fa arrow"></span></a>
+                                <a href="#"  class="active"><i class="fa fa-bar-chart-o fa-fw"></i>Hotel & Resort Management<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="hotelresort.php">Manage Hotels & Resort</a>
+                                        <a href="hotelresort.php">Vendor Information</a>
                                     </li>
                                     <li>
-                                        <a href="addproduct.php">Manage Features of hotel</a>
+                                        <a href="addproduct.php"  class="active">Vendor Activities & Package</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
@@ -128,6 +129,30 @@
                             <li>
                                 <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                             </li>
+
+                            <li>
+                                <a href="room_archives.php">&nbsp;<i class="fa fa-trash"></i> &nbsp;Room Archives</a>
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-file"></i>File Maintenance<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="activities.php">Activities</a>
+                                    </li>
+                                    <li>
+                                        <a href="amenities.php">Amenities</a>
+                                    </li>
+                                    <li>
+                                        <a href="room_type.php">Type of Room</a>
+                                    </li>
+                                    <li>
+                                        <a href="slider.php">Slider</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
                             <li>
                                 <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                             </li>

@@ -1,7 +1,10 @@
 
     <?php
+	
+	
 
 session_start();
+include("ses.php");
 
 if(isset($_SESSION["room_id"])){
   
@@ -138,70 +141,33 @@ if(isset($_SESSION["room_id"])){
 </head>
 
 <body><!-- Navigation -->	
-  <button onlick ="calcDiff()">calc</button>
-		<input class='calculated' />
+  
 
 		
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">LakbayHub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span></span> class="navbar-toggler-icon"></span>
+          <span></span> <class="navbar-toggler-icon"></span>
         </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Log in</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+            
+            <li class="nav-item ">
+              <a class="nav-link" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="myaccount.php"><?php echo "welcome $db_username !"; ?></a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="primary_block row">
-      <div class="header-rmsearch-wrapper">
-        <div class="header-rmsearch-primary">
-          <div class="container">
-            <div class="row header-rmsearch-inner-wrapper">
-              <form method="POST" id="search_hotel_block_form">
-                <div class="form-group col-sm-6 col-lg-3 "> 
-    <input type="hidden" class="form-control header-rmsearch-input" id="hotel_location" name="hotel_location" autocomplete="off" placeholder="Hotel Location" value="DefCity, Alabama, United States">
-    <div class="dropdown">
-      <ul class="location_search_results_ul" style="display: none;"></ul></div></div>
-      <div class="form-group col-sm-6 col-lg-3 ">
-        <div class="dropdown"> 
-          
-            <span id="hotel_cat_name" class="pull-left"></span> 
-    <input type="hidden" id="hotel_cat_id" name="hotel_cat_id" value="15"> 
-    <input type="hidden" id="id_hotel" name="id_hotel" value="1"> 
-    <input type="hidden" id="max_order_date" name="max_order_date" value="2019-09-18"> 
-    <span class="arrow_span"> <i class="icon icon-angle-down"></i> </span> </button>
-    <ul class="dropdown-menu hotel_dropdown_ul">
-      </ul></div></div>
-      <div class="form-group col-sm-4 col-lg-2 "> 
-        <input type="hidden" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_in_time" name="check_in_time" autocomplete="off" placeholder="Check In Date" value="22-11-2018"></div>
-        <div class="form-group col-sm-4 col-lg-2 "> 
-          <input type="hidden" class="form-control header-rmsearch-input input-date hasDatepicker" id="check_out_time" name="check_out_time" autocomplete="off" placeholder="Check Out Date" value="24-11-2018"></div>
-          <div class="form-group col-sm-4 col-lg-2 "> 
-            </div>
-            </form></div></div></div></div>
+    
            
 
 
@@ -413,7 +379,7 @@ $myjson = json_encode($total);
 
 ?>
 
-  <form action="resultpagee2.php" method="post">
+  <form action="cart.php" method="post">
     <div class="form-group"> 
       <label for="" class="control-label">Hotel Location</label> 
       <input type="text" class="form-control" name="hotel_location" id="hotel_location" value="<?php echo "$db_hotelname";?>" readonly="true"></div>
@@ -458,8 +424,10 @@ $myjson = json_encode($total);
                   <div class="form-group unvail_rooms_cond_display">
                     <p id="add_to_cart" class="buttons_bottom_block no-print"> 
                       <input type="hidden" value="<?php echo $_SESSION["room_id"]; ?>" id="rm_id" />
+					  <a href="cart.php">
                       <button type="submit" name="Submit" class="exclusive book_now_submit added"> 
                         <span> Book Now </span> 
+						</a>
                       </button></p></div>
                     </form></div></div></div>
                     </div>

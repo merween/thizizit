@@ -1,0 +1,20 @@
+@media (max-width: 992px) {
+                    .table-responsive-row td:nth-of-type(1):before {
+                content: "ID";
+            }
+                    .table-responsive-row td:nth-of-type(2):before {
+                content: "Hotel Name";
+            }
+                    .table-responsive-row td:nth-of-type(3):before {
+                content: "City";
+            }
+                    .table-responsive-row td:nth-of-type(4):before {
+                content: "State";
+            }
+                    .table-responsive-row td:nth-of-type(5):before {
+                content: "Country";
+            }
+                    .table-responsive-row td:nth-of-type(6):before {
+                content: "Status";
+            }
+            }

@@ -1,0 +1,64 @@
+/*!
+ * Start Bootstrap - Half Slider (https://startbootstrap.com/template-overviews/half-slider)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-half-slider/blob/master/LICENSE)
+ */
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.row {
+  margin-left:-15px;
+  margin-right:-15px;
+}
+
+.footer {
+    background-color: #000d1a;
+    color: rgb(255,255,255);
+}
+.footer {
+    background-color: #000d1a;
+    color: white;
+}
+footer {
+    padding-top: 30px;
+    background-color: #292c2f;
+    color: #bbb;
+}
+footer {
+    padding-top: 30px;
+    background-color: #292c2f;
+    color: #bbb;
+}
+
+span.error{
+
+  color:red;
+}
+
+
+.k12{
+	
+	    text-align: center;
+}
+.btn-success {
+	margin-left: 10px;
+    color: white;
+    background-color: #007bff;
+    border-color: #00457d;
+}
+
+h5.text-md-right{
+	
+	padding-left:50px;
+	
+}
+

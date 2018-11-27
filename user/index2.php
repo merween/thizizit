@@ -16,9 +16,9 @@ if(isset($_SESSION["id"])){
   $db_email = $row_edit["emailad"];
 
 }
-echo "welcome $db_username !";
+
 
 }else{
   
-  echo "You mustl login first! <a href='../login.php'>log in now!</a>";
+  
 }

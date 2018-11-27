@@ -1,31 +1,8 @@
 
-    <?php
-
-session_start();
-
-if(isset($_SESSION["id"])){
+  <?php
   
-  $user_id = $_SESSION["id"];
-
-  include("../connections.php");
-
-  $get_record = mysqli_query($connections, "SELECT * FROM registration WHERE id ='$user_id'");
-
-  while ($row_edit = mysqli_fetch_assoc($get_record)){
-  $db_name = $row_edit["fullname"];
-  $db_username = $row_edit["username"];
-  $db_email = $row_edit["emailad"];
-
-}
-
-
-}else{
-  
- 
-
-
-
-?>
+  include("index2.php");
+  ?>
 
 <!DOCTYPE html>
 <html>
@@ -55,21 +32,12 @@ if(isset($_SESSION["id"])){
           <ul class="navbar-nav">
             
             <li class="nav-item">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="index.php">Home
                 <span class="sr-only"></span>
               </a>
-            </li>
+            
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><?php echo "You mustl login first! <a href='../login.php'>log in now!</a>";}?></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            li class="nav-item">
-              <a class="nav-link" href="login.php"><?php echo "welcome $db_username !"; ?></a>
+              <a class="nav-link" href="myaccount.php.php"><?php echo "welcome $db_username !"; ?></a>
             </li>
           </ul>
         </div>
@@ -272,7 +240,7 @@ include("../connections.php");
 if(isset($_POST['search'])){
   $search = $_POST['search'];
 
-  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.room_id, r.room_name, r.description, r.adult, r.child, r.price, r.beds, r.pools, r.room_img
+  $searchQuery = mysqli_query($connections, "SELECT hr.*, r.room_id, r.room_name, r.description, r.adult, r.child, r.price, r.type_of_room, r.beds, r.pools, r.image, r.image1, r.image2, r.hotel_type
   FROM hotel_registration as hr left join rooms as r on hr.hotel_id = r.hotel_id where hr.hotel_name like '%".$search."%' or hr.address like '%".$search."%' or hr.business_type like '%".$search."%' or r.room_name like '%".$search."%'");
 
   $resultSet = array();
@@ -290,6 +258,10 @@ if(isset($_POST['search'])){
       $resultSet[$row["hotel_id"]]["email_address"] = $row["email_address"];
       $resultSet[$row["hotel_id"]]["phone_number"] = $row["phone_number"];
       $resultSet[$row["hotel_id"]]["hotel_facilities"] = $row["hotel_facilities"];
+	  $resultSet[$row["hotel_id"]]["image"] = $row["image"];
+	  $resultSet[$row["hotel_id"]]["image1"] = $row["image1"];
+	  $resultSet[$row["hotel_id"]]["image2"] = $row["image2"];
+
 
       // adding rooms in hotel
     
@@ -300,9 +272,13 @@ if(isset($_POST['search'])){
       $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["adult"] = $row["adult"];
       $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["child"] = $row["child"];
       $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["price"] = $row["price"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["type_of_room"] = $row["type_of_room"];
       $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["beds"] = $row["beds"];
       $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["pools"] = $row["pools"];
-      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["room_img"] = $row["room_img"];
+      $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image"] = $row["image"];
+  	  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image1"] = $row["image1"];
+  	  $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["image2"] = $row["image2"];
+     $resultSet[$row["hotel_id"]]["rooms"][$row["room_id"]]["hotel_type"] = $row["hotel_type"];
     }
  
   }
@@ -327,7 +303,7 @@ foreach($resultSet as $key => $value ):
 
 
 
-      <a href="#"> <img src="https://demo.qloapps.com/24-home_default/super-delux-rooms.jpg" class="img-responsive"> </a></div>
+      <a href="#"> <img src="../admin/pages/table/upload/<?php echo $value["image"]?>" class="img-responsive"> </a></div>
    
       <div class="col-sm-8">
         <p class="rm_heading"><?php echo $value["hotel_name"] ?></p>
@@ -390,7 +366,7 @@ $_SESSION["room_id"] = $room;
 
 
 
-      <a href="#"> <img src="https://demo.qloapps.com/24-home_default/super-delux-rooms.jpg" class="img-responsive"> </a></div>
+      <a href="#"> <img src="../admin/pages/table1/upload/<?php echo $room_value["image"]?>" class="img-responsive"> </a></div>
    
       <div class="col-sm-8">
         <p class="rm_heading"><?php echo $room_value["room_name"] ?></p>
@@ -420,7 +396,7 @@ $_SESSION["room_id"] = $room;
                 
                   
                 </div></div></div>
-</div></div>
+</div>
           
 
               <?php endforeach;

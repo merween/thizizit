@@ -1,44 +1,32 @@
+<?php include 'connect.php';
 
+$amenities = mysqli_query($connect, "SELECT * FROM amenities");
+$hotels = mysqli_query($connect, "SELECT * FROM hotel_registration");
+$type = mysqli_query($connect, "SELECT * FROM type_of_room LIMIT 1");
+$type_row = mysqli_fetch_array($type);
 
+$getType = $type_row['type_name'];
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <title>My Admin Panel</title>
-
-        <!-- Bootstrap Core CSS -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- MetisMenu CSS -->
-        <link href="../css/metisMenu.min.css" rel="stylesheet">
-
-        <!-- Timeline CSS -->
-        <link href="../css/timeline.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
+        <title>iBukmo</title>
+        <!-- sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <link href="../css/startmin.css" rel="stylesheet">
-
-        <!-- Morris Charts CSS -->
-        <link href="../css/morris.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
         <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        
     </head>
     <body>
 
-        <div id="wrapper">
+         <div id="wrapper">
 
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -91,7 +79,7 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="../../../index1.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -113,13 +101,13 @@
                                 <!-- /input-group -->
                             </li>
                             <li>
-                                <a href="index.html" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="hotelresort.php"><i class="fa fa-bar-chart-o fa-fw"></i>Hotel & Resort Management<span class="fa arrow"></span></a>
+                                <a href="#"  class="active"><i class="fa fa-bar-chart-o fa-fw"></i>Hotel & Resort Management<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                           <a href="hotelresort.php">Vendor Information</a>
+                                        <a href="hotelresort.php" class="active">Vendor Information</a>
                                     </li>
                                     <li>
                                         <a href="addproduct.php">Vendor Activities & Package</a>
@@ -130,6 +118,27 @@
                             <li>
                                 <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                             </li>
+
+                            <li>
+                                <a href="room_archives.php">&nbsp;<i class="fa fa-trash"></i> &nbsp;Room Archives</a>
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-file"></i>File Maintenance<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="activities.php">Activities</a>
+                                    </li>
+                                    <li>
+                                        <a href="amenities.php">Amenities</a>
+                                    </li>
+                                    <li>
+                                        <a href="room_type.php">Type of Room</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
                             <li>
                                 <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                             </li>
@@ -143,7 +152,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Hotels & Resort Management > Vendors Information</h1>
+                        <h5 class="page-header">Vendor Activities & Package > Vendor Information</h5>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -152,134 +161,24 @@
 <a href="#" class="toolbar_btn dropdown-toolbar navbar-toggle" data-toggle="collapse" data-target="#toolbar-nav"><i class="process-icon-dropdown"></i><div>Menu</div></a>
 <ul id="toolbar-nav" class="nav nav-pills pull-right collapse navbar-collapse">
 <li>
-<a href="registerhotel.php">Add new Hotel
-<i class="process-icon-new"></i>
 
-</a>
+
 </li>
-</ul>
+<BR </ul>
 </div>
 </div>
-                <!-- /.row -->
-                <div class="row">
-                    
-<div class="panel-heading">
-Manage Companies <span class="badge">1</span>
-<span class="panel-heading-action">
-<a id="desc-htl_branch_info-new" class="list-toolbar-btn" href="index.php?controller=AdminAddHotel&amp;addhtl_branch_info&amp;token=d662ccd13037741bf48012517671b672">
-<span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Add new" data-html="true" data-placement="top">
-<i class="process-icon-new"></i>
-</span>
-</a>
-<a class="list-toolbar-btn" href="javascript:location.reload();">
-<span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Refresh list" data-html="true" data-placement="top">
-<i class="process-icon-refresh"></i>
-</span>
-</a>
-</span>
-</div>
-
-<style>
-    @media (max-width: 992px) {
-                    .table-responsive-row td:nth-of-type(1):before {
-                content: "ID";
-            }
-                    .table-responsive-row td:nth-of-type(2):before {
-                content: "Hotel Name";
-            }
-                    .table-responsive-row td:nth-of-type(3):before {
-                content: "City";
-            }
-                    .table-responsive-row td:nth-of-type(4):before {
-                content: "State";
-            }
-                    .table-responsive-row td:nth-of-type(5):before {
-                content: "Country";
-            }
-                    .table-responsive-row td:nth-of-type(6):before {
-                content: "Status";
-            }
-            }
-    </style>
 
 
+<!-- lipat ko lang yung css -->
+<link rel="stylesheet" type="text/css" href="media-style.css">
+<iframe src="table1/index.php?type=Hotel Information" frameBorder="0"></iframe>
 
-
-
-<div class="table-responsive-row clearfix">
-<table class="table htl_branch_info">
-
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Company Id</th>
-      <th scope="col">Establishment</th>
-      <th scope="col">Type of Business</th>
-      <th scope="col">Company Name</th>
-      <th scope="col">Locations</th>
-      <th scope="col">Email Address</th>
-    </tr>
-  </thead>
-  <tbody>
-     <?php
-include("connect.php");
-
-
-$view_query = mysqli_query($connect, "SELECT * FROM hotel_registration");
-
-while ($row = mysqli_fetch_assoc($view_query)){
-$db_id = $row["hotel_id"];
-$db_type = $row["business_type"];
-$db_name = $row["hotel_name"];
-$db_location = $row["address"];
-$db_email = $row["email_address"];
-$db_img = $row["hotel_img"];
-
-echo "<tr>
-	<td>$db_id</td>
-    <td><img src='$db_img' style='width:64px;height:64px'></td>
-	<td>$db_type</td>
-	<td>$db_name</td>
-	<td>$db_location</td>
-	<td>$db_email</td>
-	</tr>";
-
-
+<style type="text/css">
+iframe
+{
+    width: 76%;
+    height: 100%;
+    position: absolute;
+    margin-bottom: 1%;
 }
-?>
- 
-
-  </tbody>
-</table>
-
-
-
-
-        <!-- /#wrapper -->
-
-        <!-- jQuery -->
-        <script src="../js/jquery.min.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../js/bootstrap.min.js"></script>
-
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/metisMenu.min.js"></script>
-
-        <!-- DataTables JavaScript -->
-        <script src="../js/dataTables/jquery.dataTables.min.js"></script>
-        <script src="../js/dataTables/dataTables.bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="../js/startmin.js"></script>
-
-        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        <script>
-            $(document).ready(function() {
-                $('#dataTables-example').DataTable({
-                        responsive: true
-                });
-            });
-        </script>
-
-    </body>
-</html>
+</style>
